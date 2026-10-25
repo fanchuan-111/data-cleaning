@@ -1,0 +1,18 @@
+{
+  "generator": "generate_dirty_data.py",
+  "seed": 42,
+  "expected": {
+    "total_rows": 1990,
+    "duplicates_exact": 60,
+    "duplicates_semantic": 40,
+    "duplicates_total": 100,
+    "missing_date": 14,
+    "missing_amount": 11,
+    "missing_subject": 19,
+    "missing_summary": 16,
+    "missing_total": 60,
+    "amount_outlier": 30,
+    "date_format_variants": 5,
+    "amount_style_variants": 6
+  }
+}

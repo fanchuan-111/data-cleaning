@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>财务台账清洗报告</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #00ff9d; --warn: #f0883e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 40px 24px;
+    background: var(--bg); color: var(--text);
+    font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .card .value { font-size: 28px; font-weight: 700; margin-top: 6px; font-family: ui-monospace, Consolas, monospace; }
+  .card .value.green { color: var(--accent); }
+  .card .value.orange { color: var(--warn); }
+  .card .note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  h2 { font-size: 17px; margin: 32px 0 12px; color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; background: var(--card);
+           border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 13px; }
+  th { background: #1c2128; text-align: left; padding: 10px 14px; color: var(--muted); font-weight: 600; }
+  td { padding: 9px 14px; border-top: 1px solid var(--border); font-family: ui-monospace, Consolas, monospace; }
+  .highlight { background: rgba(0,255,157,.08); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 6px;
+            background: rgba(0,255,157,.12); color: var(--accent);
+            font-size: 11px; font-family: ui-monospace, Consolas, monospace; }
+  .lv-0 { background: rgba(248,81,73,.15); color: #ff7b72; }
+  .lv-1 { background: rgba(240,136,62,.15); color: var(--warn); }
+  .lv-2 { background: rgba(139,148,158,.15); color: var(--muted); }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .green { color: var(--accent); }
+  .warn { color: var(--warn); }
+  .muted { color: var(--muted); font-family: inherit; }
+  .mono { font-family: ui-monospace, Consolas, monospace; color: var(--muted); }
+  .bar { position: relative; height: 8px; width: 130px; background: #21262d; border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: #8b949e; border-radius: 4px; }
+  .bar-green i { background: var(--accent); }
+  .footer { margin-top: 40px; color: var(--muted); font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>财务台账<span>清洗报告</span></h1>
+  <div class="sub">Pandas 数据处理 · 6 步流水线 · 质量评分 · 全流程可复现</div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="label">原始行数</div>
+      <div class="value">1990</div>
+      <div class="note">脏数据</div>
+    </div>
+    <div class="card">
+      <div class="label">清洗后</div>
+      <div class="value green">1846</div>
+      <div class="note">去重 100 行</div>
+    </div>
+    <div class="card">
+      <div class="label">待人工复核</div>
+      <div class="value orange">74</div>
+      <div class="note">错误 / 警告分级</div>
+    </div>
+    <div class="card">
+      <div class="label">质量总分</div>
+      <div class="value green">76.2 → 99.9</div>
+      <div class="note">6 维度平均</div>
+    </div>
+  </div>
+
+  <h2>数据质量评分（清洗前 → 清洗后）</h2>
+  <table>
+    <tr><th>维度</th><th>清洗前</th><th></th><th>清洗后</th><th></th><th>变化</th></tr>
+    <tr>
+              <td>完整性</td>
+              <td><div class="bar"><i style="width:99.4%"></i></div></td>
+              <td class="num">99.4</td>
+              <td><div class="bar bar-green"><i style="width:100.0%"></i></div></td>
+              <td class="num green">100.0</td>
+              <td class="num">+0.6</td>
+            </tr>
+<tr>
+              <td>唯一性</td>
+              <td><div class="bar"><i style="width:97.0%"></i></div></td>
+              <td class="num">97.0</td>
+              <td><div class="bar bar-green"><i style="width:100.0%"></i></div></td>
+              <td class="num green">100.0</td>
+              <td class="num">+3.0</td>
+            </tr>
+<tr>
+              <td>有效性</td>
+              <td><div class="bar"><i style="width:99.4%"></i></div></td>
+              <td class="num">99.4</td>
+              <td><div class="bar bar-green"><i style="width:100.0%"></i></div></td>
+              <td class="num green">100.0</td>
+              <td class="num">+0.6</td>
+            </tr>
+<tr>
+              <td>一致性</td>
+              <td><div class="bar"><i style="width:22.9%"></i></div></td>
+              <td class="num">22.9</td>
+              <td><div class="bar bar-green"><i style="width:100.0%"></i></div></td>
+              <td class="num green">100.0</td>
+              <td class="num">+77.1</td>
+            </tr>
+<tr>
+              <td>准确性</td>
+              <td><div class="bar"><i style="width:98.6%"></i></div></td>
+              <td class="num">98.6</td>
+              <td><div class="bar bar-green"><i style="width:99.2%"></i></div></td>
+              <td class="num green">99.2</td>
+              <td class="num">+0.6</td>
+            </tr>
+<tr>
+              <td>规范性</td>
+              <td><div class="bar"><i style="width:40.0%"></i></div></td>
+              <td class="num">40.0</td>
+              <td><div class="bar bar-green"><i style="width:100.0%"></i></div></td>
+              <td class="num green">100.0</td>
+              <td class="num">+60.0</td>
+            </tr>
+  </table>
+
+  <h2>清洗效果验证（对照生成时的标准答案）</h2>
+  <p class="sub">生成器埋坑时记录了「应该有多少条」，清洗后逐项核对。这是清洗系统自己的评测。</p>
+  <table>
+    <tr><th>问题类型</th><th>应有</th><th>抓到</th><th>漏</th><th>检出率</th></tr>
+    <tr>
+                  <td>去重</td>
+                  <td class="num">100</td>
+                  <td class="num green">100</td>
+                  <td class="num ">0</td>
+                  <td class="num">100%</td>
+                </tr>
+<tr>
+                  <td>日期缺失</td>
+                  <td class="num">14</td>
+                  <td class="num green">14</td>
+                  <td class="num ">0</td>
+                  <td class="num">100%</td>
+                </tr>
+<tr>
+                  <td>金额缺失</td>
+                  <td class="num">11</td>
+                  <td class="num green">11</td>
+                  <td class="num ">0</td>
+                  <td class="num">100%</td>
+                </tr>
+<tr>
+                  <td>科目缺失</td>
+                  <td class="num">19</td>
+                  <td class="num green">19</td>
+                  <td class="num ">0</td>
+                  <td class="num">100%</td>
+                </tr>
+<tr>
+                  <td>金额离谱</td>
+                  <td class="num">30</td>
+                  <td class="num green">30</td>
+                  <td class="num ">0</td>
+                  <td class="num">100%</td>
+                </tr>
+  </table>
+  <h2>校验规则命中情况</h2>
+  <table>
+    <tr><th>规则</th><th>检查项</th><th>级别</th><th>命中</th><th>建议处理</th></tr>
+    <tr>
+              <td class="mono">R001</td>
+              <td>日期缺失或无法解析</td>
+              <td><span class="badge lv-0">错误</span></td>
+              <td class="num">14</td>
+              <td class="muted">补录原始凭证上的日期</td>
+            </tr>
+<tr>
+              <td class="mono">R002</td>
+              <td>金额缺失或无法解析</td>
+              <td><span class="badge lv-0">错误</span></td>
+              <td class="num">11</td>
+              <td class="muted">核对原始凭证金额</td>
+            </tr>
+<tr>
+              <td class="mono">R003</td>
+              <td>科目缺失</td>
+              <td><span class="badge lv-0">错误</span></td>
+              <td class="num">19</td>
+              <td class="muted">按摘要判断应归属科目</td>
+            </tr>
+<tr>
+              <td class="mono">R004</td>
+              <td>日期超出合理范围</td>
+              <td><span class="badge lv-1">警告</span></td>
+              <td class="num">0</td>
+              <td class="muted">确认是否录错年份</td>
+            </tr>
+<tr>
+              <td class="mono">R005</td>
+              <td>金额为零</td>
+              <td><span class="badge lv-1">警告</span></td>
+              <td class="num">0</td>
+              <td class="muted">确认是否漏填金额</td>
+            </tr>
+<tr>
+              <td class="mono">R006</td>
+              <td>金额异常偏高</td>
+              <td><span class="badge lv-1">警告</span></td>
+              <td class="num">30</td>
+              <td class="muted">确认是否多录了小数点或 0</td>
+            </tr>
+<tr>
+              <td class="mono">R007</td>
+              <td>摘要为空</td>
+              <td><span class="badge lv-2">提示</span></td>
+              <td class="num">16</td>
+              <td class="muted">已自动标注为（未填写）</td>
+            </tr>
+  </table>
+
+  <h2>效率对比</h2>
+  <table>
+    <tr><th>处理方式</th><th>耗时</th><th>说明</th></tr>
+    <tr><td>人工逐行核对</td><td>约 133 分钟（2.2 小时）</td>
+        <td>按每行 4 秒估算</td></tr>
+    <tr class="highlight"><td>本脚本</td><td>0.61 秒</td>
+        <td><span class="badge">提速约 12,991 倍</span></td></tr>
+  </table>
+
+  <h2>清洗流水线</h2>
+  <table>
+    <tr><th>步骤</th><th>处理量</th><th>异常量</th><th>结果</th></tr>
+    <tr><td>读取原始数据</td><td>1990</td><td>1990</td><td>—</td></tr>
+<tr><td>日期标准化</td><td>14</td><td>0</td><td>1976 条解析成功</td></tr>
+<tr><td>金额清洗</td><td>11</td><td>0</td><td>1979 条转换成功</td></tr>
+<tr><td>科目标准化</td><td>730</td><td>0</td><td>8 个标准科目</td></tr>
+<tr><td>去重</td><td>100</td><td>0</td><td>剩余 1890 行</td></tr>
+<tr><td>缺失值处理</td><td>16</td><td>0</td><td>摘要空值标注为（未填写）</td></tr>
+<tr><td>数据校验</td><td>0</td><td>30</td><td>规则表驱动，7 条规则</td></tr>
+  </table>
+
+  <h2>科目分布（标准化后）</h2>
+  <table>
+    <tr><th>科目</th><th>笔数</th></tr>
+    <tr><td>财务费用</td><td>245</td></tr>
+<tr><td>管理费用</td><td>243</td></tr>
+<tr><td>营业成本</td><td>242</td></tr>
+<tr><td>库存现金</td><td>240</td></tr>
+<tr><td>营业收入</td><td>233</td></tr>
+<tr><td>银行存款</td><td>217</td></tr>
+<tr><td>应收账款</td><td>214</td></tr>
+<tr><td>销售费用</td><td>212</td></tr>
+  </table>
+
+  <h2>清洗结果示例（前 12 行）</h2>
+  <table>
+    <tr><th>凭证号</th><th>日期</th><th>科目</th><th>摘要</th><th>金额</th><th>制单人</th></tr>
+    <tr><td>记-1682</td><td>2024-06-02</td><td>银行存款</td><td>办公用品采购</td><td>-43384.86</td><td>杨帆</td></tr>
+<tr><td>记-0831</td><td>2024-08-08</td><td>管理费用</td><td>银行手续费</td><td>-128.12</td><td>赵敏</td></tr>
+<tr><td>记-1208</td><td>2024-09-21</td><td>应收账款</td><td>缴纳社保</td><td>8172.43</td><td>杨帆</td></tr>
+<tr><td>记-0028</td><td>2024-10-08</td><td>管理费用</td><td>收到押金</td><td>-43423.52</td><td>张伟</td></tr>
+<tr><td>记-1376</td><td>2024-01-17</td><td>财务费用</td><td>收到货款</td><td>-458.34</td><td>王芳</td></tr>
+<tr><td>记-0096</td><td>2024-10-31</td><td>营业收入</td><td>计提折旧</td><td>7089.95</td><td>陈静</td></tr>
+<tr><td>记-1769</td><td>2024-05-09</td><td>财务费用</td><td>收到投资款</td><td>-6735.47</td><td>周涛</td></tr>
+<tr><td>记-4702</td><td>2024-11-03</td><td>银行存款</td><td>（未填写）</td><td>-28110.39</td><td>刘洋</td></tr>
+<tr><td>记-1278</td><td>2024-02-24</td><td>财务费用</td><td>收到投资款</td><td>-21557.97</td><td>赵敏</td></tr>
+<tr><td>记-0076</td><td>2024-08-07</td><td>应收账款</td><td>银行手续费</td><td>-41035.62</td><td>张伟</td></tr>
+<tr><td>记-0012</td><td>2024-03-14</td><td>营业收入</td><td>收到押金</td><td>-31848.06</td><td>陈静</td></tr>
+<tr><td>记-0802</td><td>2024-11-02</td><td>应收账款</td><td>支付咨询费</td><td>25538.55</td><td>赵敏</td></tr>
+  </table>
+
+  <div class="footer">
+    由 clean.py 自动生成 · 数据来源：raw_台账.csv · 标准答案：truth_埋坑清单.json
+  </div>
+</div>
+</body>
+</html>
